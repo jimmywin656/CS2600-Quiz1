@@ -15,40 +15,40 @@ void printMagicSquare(int square[SIZE][SIZE]) {
 }
 
 int isMagicSquare(int square[SIZE][SIZE]) {
-    int targetSum = 15; // The sum for Lo Shu Magic Square
+    int targetSum = 15; // target sum for each row/column/diagonal
 
     // Check the sum of all rows
     // if one row != 15, then immediately return 0 , cannot be a magic square
     for (int i = 0; i < SIZE; i++) {
         int rowSum = 0;
         for (int j = 0; j < SIZE; j++) {
-            rowSum += square[i][j];
+            rowSum += square[i][j];     // row = i, column = j  (j changes)
         }
         if (rowSum != targetSum) {
             return 0; // not a magic square
         }
-    }
+    }   // all rows must = 15 to pass 
 
     // Check the sum of all columns
     for (int i = 0; i < SIZE; i++) {
         int colSum = 0;
         for (int j = 0; j < SIZE; j++) {
-            colSum += square[j][i];
+            colSum += square[j][i];     // column = j, row = i  (j changes)
         }
         if (colSum != targetSum) {
             return 0; // Not a magic square
         }
-    }
+    }   // all columns must = 15 to pass
 
     // Check the sum of the two diagonals
-    int diag1Sum = 0;
-    int diag2Sum = 0;
+    int diagonal1Sum = 0;
+    int diagonal2Sum = 0;
     for (int i = 0; i < SIZE; i++) {
-        diag1Sum += square[i][i];
-        diag2Sum += square[i][SIZE - 1 - i];
+        diagonal1Sum += square[i][i];       // sum of top left to bottom right diagonal
+        diagonal2Sum += square[i][SIZE - 1 - i];        // sum of top right to bottom left diagonal
     }
 
-    return (diag1Sum == targetSum && diag2Sum == targetSum);
+    return (diagonal1Sum == targetSum && diagonal2Sum == targetSum);        //return 0 if diagonals != 15 and 1 if they do
 }
 
 int main(void) {
@@ -57,21 +57,18 @@ int main(void) {
 
     while (1) {
         int square[SIZE][SIZE] = {0}; // Initialize a new square
-        int numbers[SIZE * SIZE] = {0}; // Initialize a new numbers array
 
-        // Generate a valid Lo Shu Magic Square
+        // Generate a random square with the numbers 1-9
         for (int i = 1; i <= SIZE * SIZE; i++) {
             int row, col;       // declare index variables
             do {
                 row = rand() % SIZE;        // pick row index
                 col = rand() % SIZE;        // pick column index
-            } while (square[row][col] != 0);    // keep picking different index until the cell 
+            } while (square[row][col] != 0);    // choose an empty cell to hold the value i
             square[row][col] = i;
         }
 
         count++;
-        printf("Generated Square %d:\n", count);
-        printMagicSquare(square);
 
         // Check if it's a Lo Shu Magic Square
         if (isMagicSquare(square)) {
