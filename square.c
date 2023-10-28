@@ -15,30 +15,25 @@ void printMagicSquare(int square[SIZE][SIZE]) {
 }
 
 int isMagicSquare(int square[SIZE][SIZE]) {
-    int sum = 0;
     int targetSum = 15; // The sum for Lo Shu Magic Square
 
-    // Calculate the sum of the first row for comparison
-    for (int j = 0; j < SIZE; j++) {
-        sum += square[0][j];
-    }
-
     // Check the sum of all rows
-    for (int i = 1; i < SIZE; i++) {
+    // if one row != 15, then immediately return 0 , cannot be a magic square
+    for (int i = 0; i < SIZE; i++) {
         int rowSum = 0;
         for (int j = 0; j < SIZE; j++) {
             rowSum += square[i][j];
         }
         if (rowSum != targetSum) {
-            return 0; // Not a magic square
+            return 0; // not a magic square
         }
     }
 
     // Check the sum of all columns
-    for (int j = 0; j < SIZE; j++) {
+    for (int i = 0; i < SIZE; i++) {
         int colSum = 0;
-        for (int i = 0; i < SIZE; i++) {
-            colSum += square[i][j];
+        for (int j = 0; j < SIZE; j++) {
+            colSum += square[j][i];
         }
         if (colSum != targetSum) {
             return 0; // Not a magic square
@@ -53,10 +48,10 @@ int isMagicSquare(int square[SIZE][SIZE]) {
         diag2Sum += square[i][SIZE - 1 - i];
     }
 
-    return (diag1Sum == targetSum && diag2Sum == targetSum && sum == targetSum);
+    return (diag1Sum == targetSum && diag2Sum == targetSum);
 }
 
-int main() {
+int main(void) {
     srand(time(NULL));
     int count = 0;
 
@@ -66,11 +61,11 @@ int main() {
 
         // Generate a valid Lo Shu Magic Square
         for (int i = 1; i <= SIZE * SIZE; i++) {
-            int row, col;
+            int row, col;       // declare index variables
             do {
-                row = rand() % SIZE;
-                col = rand() % SIZE;
-            } while (square[row][col] != 0);
+                row = rand() % SIZE;        // pick row index
+                col = rand() % SIZE;        // pick column index
+            } while (square[row][col] != 0);    // keep picking different index until the cell 
             square[row][col] = i;
         }
 
@@ -83,9 +78,9 @@ int main() {
             printf("Total squares generated and tested: %d\n", count);
             printf("Magic Square:\n");
             printMagicSquare(square);
-            break;
+            return EXIT_SUCCESS;
         }
     }
 
-    return 0;
+    return EXIT_FAILURE;        // should never reach this point if code works
 }
