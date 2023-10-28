@@ -36,6 +36,7 @@ int main (void) {
     }
 
     // search for phone number
+    // this will match
     matchPtr = searchEmployeeByPhone(EmployeeTable, EmployeeTableEntries, "310-555-1215");
     if (matchPtr != NULL) {
         printf("Employee phone of 310-555-1215 is in record %d\n", matchPtr - EmployeeTable);
@@ -44,12 +45,33 @@ int main (void) {
     }
 
     // search for salary
+    // this will match
     matchPtr = searchEmployeeBySalary(EmployeeTable, EmployeeTableEntries, 6.34);
     if (matchPtr != NULL) {
         printf("Employee salary of 6.34 is in record %d\n", matchPtr - EmployeeTable);
     } else {
         printf("Employee with salary of 6.34 is NOT found in the record\n");
     }
+
+    // UNCOMMENT FOR NO MATCH 
+
+    //// search for phone number
+    //// this will NOT match
+    // matchPtr = searchEmployeeByPhone(EmployeeTable, EmployeeTableEntries, "999-111-2222");
+    // if (matchPtr != NULL) {
+    //     printf("Employee phone of 999-111-2222 is in record %d\n", matchPtr - EmployeeTable);
+    // } else {
+    //     printf("Employee phone number: 999-111-2222 is NOT found in the record\n");
+    // }
+
+    // search for salary
+    // this will NOT match
+    // matchPtr = searchEmployeeBySalary(EmployeeTable, EmployeeTableEntries, 9.00);
+    // if (matchPtr != NULL) {
+    //     printf("Employee salary of 9.00 is in record %d\n", matchPtr - EmployeeTable);
+    // } else {
+    //     printf("Employee with salary of 9.00 is NOT found in the record\n");
+    // }
 
     return EXIT_SUCCESS;
 }
